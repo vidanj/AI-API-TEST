@@ -1,15 +1,11 @@
-import express from 'express';
-import { ChatController } from './controllers/chatController';
+import express from "express"; 
+import cors from 'cors';
+import llmRoutes from "./routes/llmRoutes";
 
 const app = express();
-const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
+app.use("/api/llm", llmRoutes);
 
-const chatController = new ChatController();
-
-app.post('/chat', (req, res) => chatController.handleChat(req, res));
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+export default app;
